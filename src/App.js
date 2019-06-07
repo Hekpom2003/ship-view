@@ -1,26 +1,40 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import './App.scss';
+import ShipInfo from './Components/ShipInfo';
+import RoomInfo from './Components/RoomInfo';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      showRoom: false,
+    };
+
+  }
+
+  render() {
+
+    console.log(this.props.data);
+
+    const { ship, currentTown } = this.props.data;
+
+    // console.log('App', currentTown);
+
+    return (
+      <div className="rent-ship-app">
+
+        <ShipInfo
+          {...ship}
+          currentTown={currentTown}
+          _onSelectRoom={value => this.setState({ showRoom: value })}
+        />
+
+        <RoomInfo key={JSON.stringify(this.state.showRoom)} {...this.state.showRoom}/>
+
+      </div>
+    );
+  }
 }
 
 export default App;
